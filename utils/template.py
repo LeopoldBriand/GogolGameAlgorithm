@@ -1,7 +1,8 @@
 
 class GogoleTemplate:
-    def __init__(self):
+    def __init__(self, name):
         self.circles = []
+        self.name = name
 
     def initCircles(self, card, config):
         i = 0
@@ -19,7 +20,7 @@ class GogoleObject:
         return self.radius 
     
     def getPos(self):
-        return (self.pos[0], self.pos[1])
+        return (self.pos[0]-self.radius, self.pos[1]-self.radius)
 
     def returnCirclePositions(self):
         return (self.pos[0]-(self.radius), self.pos[1]-(self.radius), self.pos[0]+(self.radius), self.pos[1]+(self.radius))

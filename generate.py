@@ -3,11 +3,28 @@ from random import shuffle
 from draw import draw
 import json
 from random import randrange
+from tkinter import *
 
 templates = None
 with open('./utils/templates.json') as f:
   templates = json.load(f)
 
+canvas = None
+
+def generateCards():
+  #Output all cards
+  i = 0
+  for card in cards:
+    i+=1
+    line = str(i) + " - ["
+    for number in card:
+      line = line + symbols[number-1] + ", "
+    line = line[:-2] + "]"
+    draw(card,templates[randrange(6)], i, canvas)
+    canvas.delete('all')
+
+
+Fenetre = Tk()
 #List of symbols used in the game Gogole
 symbols = ["Kendama","Clope-shit","oreiller memoire de forme","saxo","casque chevalier","wax main",
   "appareil photo rose","clio 2 bleue","206 grise","brouette","canapé violet", "retroprojecteur", 
@@ -53,14 +70,15 @@ for i in range(0,n):
 if shuffleSymbolsOnCard :
   for card in cards:
     shuffle(card)
-      
-#Output all cards
 
-i = 0
-for card in cards:
-  i+=1
-  line = str(i) + " - ["
-  for number in card:
-    line = line + symbols[number-1] + ", "
-  line = line[:-2] + "]"
-  draw(card,templates[randrange(6)])
+canvas = Canvas(Fenetre, width=1000,height=1000, bg="white")
+canvas.pack()
+
+bouton=Button(Fenetre, text="Generate", command=generateCards)
+bouton.pack()
+
+bouton=Button(Fenetre, text="Fermer", command=Fenetre.quit)
+bouton.pack()
+
+Fenetre.mainloop()
+
